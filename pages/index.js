@@ -142,7 +142,9 @@ export default function Home({
                   )
                 </span>
               </div>
-              {!query.share && (
+              {query.share ? (
+                <div id='share' />
+              ) : (
                 <div className='mt-12'>
                   <div className='flex justify-center mb-3'>
                     <a
