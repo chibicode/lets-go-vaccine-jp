@@ -160,7 +160,10 @@ export default function Home({
                       target='_blank'
                       rel='noopener'
                     >
-                      <span className='inline-flex mr-1 -ml-1 text-2xl'>
+                      <span
+                        className='inline-flex mr-1 -ml-1 text-3xl'
+                        style={{ marginTop: '-1px' }}
+                      >
                         <GitHub />
                       </span>
                       ソース
