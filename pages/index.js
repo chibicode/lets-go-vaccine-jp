@@ -119,7 +119,7 @@ export default function Home({
                 </span>
                 <Syringe />
               </div>
-              <div className='text-base xs:text-lg sm:text-xl md:text-2xl sm:mb-10 mb-8 md:mb-12'>
+              <div className='text-base xs:text-lg sm:text-xl md:text-2xl mb-8 sm:mb-10 md:mb-12'>
                 {month}/{day}({dayOfWeek}):
                 <span className={`${styles.greenHighlight} ml-1`}>
                   +{latestChange}万
