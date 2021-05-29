@@ -1,7 +1,5 @@
 # [💉レッツゴーワクチン(仮)💉](https://lets-go-vaccine-jp.vercel.app)
 
-![Screenshot](https://lets-go-vaccine-jp.vercel.app/api/og?v=6669d7)
-
 ### [https://lets-go-vaccine-jp.vercel.app](https://lets-go-vaccine-jp.vercel.app)
 
 日本における新型コロナワクチン高齢者等1日当たり接種回数がひと目でわかるダッシュボードを、[政府のオープンデータ](https://cio.go.jp/c19vaccine_opendata)を基に自動生成しています。
