@@ -195,7 +195,7 @@ export default function Home({
             </div>
           </main>
           <footer className='bg-gray-50'>
-            <div className='text-center py-5 text-gray-400 text-xxs leading-loose px-3 sm:px-4'>
+            <div className='text-center py-4 text-gray-400 text-xxs leading-loose px-3 sm:px-4'>
               データ入力の遅れにより過去の接種回数が変更される場合があります。
               <br className='hidden xs:block lg:hidden' />
               データ:
