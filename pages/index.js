@@ -13,7 +13,8 @@ const title = '💉レッツゴーワクチン(仮)💉'
 const tweetIds = [
   '1398454311663718400',
   '1398456142695571458',
-  '1398456864535302145'
+  '1398456864535302145',
+  '1398459461077925889'
 ]
 
 export default function Home({
@@ -247,7 +248,7 @@ export default function Home({
         {tweetIds.length > 0 && (
           <div className='bg-gray-50 pt-6 pb-12 px-4'>
             {tweetIds.map((tweetId) => (
-              <div className='py-5'>
+              <div className='py-5' key={tweetId}>
                 <blockquote
                   className='twitter-tweet'
                   data-conversation='none'
