@@ -7,7 +7,7 @@ module.exports = {
       './components/**/*.{js,ts,jsx,tsx}'
     ],
     options: {
-      safelist: ['text-3xl', 'md:mb-3', 'md:text-xl']
+      safelist: ['text-3xl', 'md:mb-3', 'md:text-xl', 'py-4']
     }
   },
   darkMode: false, // or 'media' or 'class'
