@@ -1,0 +1,22 @@
+.greenHighlight {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #d1fae5 60%);
+}
+
+.yellowHighlight {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #fde68a 60%);
+}
+
+.redHighlight {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #fecaca 60%);
+}
+
+.blueHighlight {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #dbeafe 60%);
+}
+
+.bg {
+  background-size: 40px 40px;
+  background-position: calc(50% - 1px) calc(50% - 1px);
+  background-image: linear-gradient(to right, #ecfdf5 1px, transparent 1px),
+    linear-gradient(to bottom, #ecfdf5 1px, transparent 1px);
+}

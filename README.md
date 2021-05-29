@@ -1,30 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [💉レッツゴーワクチン(仮)💉](https://lets-go-vaccine-jp.vercel.app)
 
-## Getting Started
+### [https://lets-go-vaccine-jp.vercel.app](https://lets-go-vaccine-jp.vercel.app)
 
-First, run the development server:
+日本における新型コロナワクチン高齢者等1日当たり接種回数がひと目でわかるダッシュボードを、[政府のオープンデータ](https://cio.go.jp/c19vaccine_opendata)を基に自動生成しています。
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- [Next.js](https://nextjs.org)を用いて開発し、作者([@chibicode](https://twitter.com/chibicode))の勤務先である[Vercel](https://vercel.com)にデプロイしています
+- [Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching)を用いることでページを静的生成しつつ、一定期間を経ると自動で更新されるようにしています
+- URLをシェアするとページのスクリーンショットを基に`og:image`が自動生成されます([コード](pages/api/og.js))
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 詳細
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **データ:** [政府CIOポータル「新型コロナワクチンの接種状況」](https://cio.go.jp/c19vaccine_opendata) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja))
+- **絵文字:** [Twemoji](https://github.com/twitter/twemoji) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
+- **作成**: 上杉周作 ([@chibicode](https://twitter.com/chibicode))
+- **プライバシーポリシー**: 作者は個人情報は一切収集していませんが、[Twitterの埋め込み](https://developer.twitter.com/en/docs/twitter-for-websites/embedded-tweets/overview)を利用しています。
+- **ライセンス**: [MIT](LICENSE.md)
+- **クレジット**: [参考1](https://twitter.com/i/events/1396010787966099456)(ご退院おめでとうございます)・[参考2](https://ja.wikipedia.org/wiki/%E8%83%8C%E6%B0%B4%E3%81%AE%E9%80%86%E8%BB%A2%E5%8A%87)・その他各種まとめサイトや匿名掲示板への投稿
+- **新型コロナワクチンについて**: [厚生労働省のページをご覧ください](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/vaccine_00184.html)

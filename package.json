@@ -8,8 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "autoprefixer": "^10.2.6",
+    "chrome-aws-lambda": "^9.1.0",
     "next": "10.2.3",
+    "postcss": "^8.3.0",
+    "puppeteer-core": "^9.1.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "tailwindcss": "^2.1.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.0"
   }
 }
