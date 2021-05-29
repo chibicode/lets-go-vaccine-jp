@@ -144,7 +144,7 @@ export default function Home({
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
                         `${url}/?v=${dateCacheKey}`
                       )}`}
-                      className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center text-white px-5 text-sm xs:text-base sm:text-lg py-3 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-400 hover:border-gray-900'
+                      className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center text-white px-5 text-sm xs:text-base sm:text-lg py-3 rounded-md focus:outline-none focus:ring-4 focus:ring-blue-400 hover:border-gray-900'
                       style={{ background: '#1D9BF0' }}
                       target='_blank'
                       rel='noopener'
@@ -156,7 +156,7 @@ export default function Home({
                     </a>
                     <a
                       href='https://github.com/chibicode/lets-go-vaccine-jp'
-                      className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center px-4 sm:px-5 text-sm xs:text-base sm:text-lg py-3 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-400 bg-gray-100 hover:border-gray-900'
+                      className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center px-4 sm:px-5 text-sm xs:text-base sm:text-lg py-3 rounded-md focus:outline-none focus:ring-4 focus:ring-blue-400 bg-gray-100 hover:border-gray-900'
                       target='_blank'
                       rel='noopener'
                     >
