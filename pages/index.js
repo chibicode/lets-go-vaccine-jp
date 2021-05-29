@@ -101,7 +101,7 @@ export default function Home({
                   <span className={styles.blueHighlight}>1日当たり</span>
                   平均接種回数
                 </div>
-                <span className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-400'>
+                <div className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-400'>
                   ※1週平均/四捨五入。医療従事者を除く(
                   <a
                     href='https://cio.go.jp/c19vaccine_opendata'
@@ -112,7 +112,7 @@ export default function Home({
                     データ元
                   </a>
                   未対応)
-                </span>
+                </div>
               </div>
               <div className='text-4xl xs:text-5xl sm:text-7xl mb-4 sm:mb-6'>
                 <Syringe />
