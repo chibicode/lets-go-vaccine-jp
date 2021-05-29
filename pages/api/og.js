@@ -24,7 +24,11 @@ async function screenshot(url) {
   await page.goto(url, {
     waitUntil: process.env.AWS_REGION ? 'networkidle0' : 'load'
   })
-  await page.waitForSelector('#share')
+  try {
+    await page.waitForSelector('#share', {
+      timeout: 5000
+    })
+  } catch (e) {}
   return await page.screenshot({ type: 'png' })
 }
 

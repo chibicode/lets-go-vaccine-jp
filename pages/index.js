@@ -44,6 +44,12 @@ export default function Home({
       }),
     [year, month, day]
   )
+  const ogImagePath = `/api/og?v=${dateCacheKey}`
+  useEffect(() => {
+    fetch(ogImagePath)
+      .then(() => {})
+      .catch(() => {})
+  }, [ogImagePath])
   return (
     <>
       <Head>
@@ -58,10 +64,7 @@ export default function Home({
         <meta property='og:url' content={url} />
         <meta property='og:description' content={description} />
         <meta name='description' content={description} />
-        <meta
-          property='og:image'
-          content={`${url}/api/og?v=${dateCacheKey}`}
-        ></meta>
+        <meta property='og:image' content={ogImagePath}></meta>
         <link rel='icon' href='/1f489.png' />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
@@ -298,8 +301,6 @@ export async function getStaticProps() {
       .map((x) => x[3] + x[4])
       .reduce((prev, current) => prev + current) / 70000
   )
-
-  console.log(data.slice(data.length - 7))
 
   const prevAvg = Math.round(
     data
