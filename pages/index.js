@@ -96,7 +96,7 @@ export default function Home({
                 時点
               </div>
               <div className='mb-10'>
-                <div className='xs:text-sm text-xs sm:text-base md:text-lg mb-1 md:mb-2'>
+                <div className='xs:text-sm text-xs sm:text-lg md:text-xl mb-1 sm:mb-2 md:mb-3'>
                   新型コロナワクチン<span className='text-xs'> </span>高齢者等
                   <span className={styles.blueHighlight}>1日当たり</span>
                   平均接種回数
