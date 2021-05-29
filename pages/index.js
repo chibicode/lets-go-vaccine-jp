@@ -10,7 +10,7 @@ import crypto from 'crypto'
 
 const description = '新型コロナワクチン 高齢者等1日当たり接種回数'
 const title = '💉レッツゴーワクチン(仮)💉'
-const tweetIds = []
+const tweetIds = ['1398454311663718400']
 
 export default function Home({
   year,
