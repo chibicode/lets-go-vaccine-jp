@@ -10,8 +10,7 @@ module.exports = {
             value: '(?<version>.*)'
           }
         ],
-        destination: '/api/og/:version',
-        permanent: true
+        destination: '/api/og/:version'
       }
     ]
   }
