@@ -5,7 +5,7 @@ import Twitter from '../components/twitter'
 import GitHub from '../components/github'
 import styles from '../styles/index.module.css'
 import { url } from '../lib/constants'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import crypto from 'crypto'
 
 const description = '新型コロナワクチン 高齢者等1日当たり接種回数'
@@ -22,10 +22,15 @@ export default function Home({
   year,
   month,
   day,
+  prevYear,
+  prevMonth,
+  prevDay,
   avg,
   prevAvg,
   latestChange,
-  dateCacheKey
+  dateCacheKey,
+  ratio,
+  dayOfWeek
 }) {
   const { query, replace, isReady } = useRouter()
   useEffect(() => {
@@ -33,17 +38,6 @@ export default function Home({
       replace(`/?v=${dateCacheKey}`)
     }
   }, [isReady, replace, query.v, query.share, dateCacheKey])
-  const ratio = useMemo(
-    () => Math.round((avg / prevAvg) * 10) / 10,
-    [avg, prevAvg]
-  )
-  const dayOfWeek = useMemo(
-    () =>
-      new Date(year, month - 1, day).toLocaleString('ja-JP', {
-        weekday: 'short'
-      }),
-    [year, month, day]
-  )
   return (
     <>
       <Head>
@@ -60,7 +54,7 @@ export default function Home({
         <meta name='description' content={description} />
         <meta
           property='og:image'
-          content={`${url}/api/og?v=${dateCacheKey}`}
+          content={`${url}/api/og/${dateCacheKey}`}
         ></meta>
         <link rel='icon' href='/1f489.png' />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
@@ -76,33 +70,37 @@ export default function Home({
           />
         )}
       </Head>
-      <div className='text-gray-900 tracking-wider'>
+      <div className='text-gray-900 xs:tracking-wider'>
         <div className={`min-h-screen flex flex-col ${styles.bg}`}>
-          <header className='text-center pb-4 xs:pb-5 sm:pb-6 pt-3 xs:pt-4 sm:pt-5 px-4 text-xl xs:text-2xl sm:text-3xl  bg-green-50'>
+          <header className='text-center pb-3 xs:pb-4 sm:pb-5 pt-2 xs:pt-3 sm:pt-4 px-4 text-xl xs:text-2xl sm:text-3xl  bg-green-50'>
             <Syringe />
             <span className={`${styles.greenHighlight} align-middle`}>
               レッツゴーワクチン
-              <span className='text-gray-400'>(仮)</span>
+              <span className='text-gray-500'>(仮)</span>
             </span>
             <Syringe />
           </header>
-          <main className='text-center py-10 px-1 xs:px-2 flex-1 flex items-center'>
+          <main className='text-center py-8 px-1 sm:px-2 flex-1 flex items-center'>
             <div className='w-full'>
-              <div className='text-xl sm:text-2xl md:text-3xl mb-3 md:mb-5'>
-                最新:{year}年
-                <span className={styles.blueHighlight}>
-                  {month}月{day}日({dayOfWeek})
-                </span>
-                時点
-              </div>
-              <div className='mb-10'>
-                <div className='xs:text-sm text-xs sm:text-lg md:text-xl mb-1 sm:mb-2 md:mb-3'>
-                  新型コロナワクチン<span className='text-xs'> </span>高齢者等
+              <div className='mb-7'>
+                <div className='text-base xs:text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 md:mb-3'>
+                  コロナワクチン<span className='hidden xs:inline'> </span>
+                  高齢者等
                   <span className={styles.blueHighlight}>1日当たり</span>
-                  平均接種回数
+                  接種回数
                 </div>
-                <div className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-400'>
-                  ※1週平均/四捨五入。医療従事者を除く(
+                <div className='text-lg xs:text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4'>
+                  {prevYear}/
+                  <span className={styles.blueHighlight}>
+                    {prevMonth}/{prevDay}〜{prevYear !== year ? year : ''}
+                    {month}/{day}
+                  </span>
+                  <span className='text-base xs:text-lg sm:text-xl md:text-2xl ml-1'>
+                    の直近1週間平均
+                  </span>
+                </div>
+                <div className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-500'>
+                  ※四捨五入。医療従事者を除く(
                   <a
                     href='https://cio.go.jp/c19vaccine_opendata'
                     target='_blank'
@@ -114,19 +112,18 @@ export default function Home({
                   未対応)
                 </div>
               </div>
-              <div className='text-4xl xs:text-5xl sm:text-7xl mb-4 sm:mb-6'>
+              <div className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6 md:mb-8'>
                 <Syringe />
                 <span className='align-middle'>
                   <span className={styles.yellowHighlight}>約{avg}万回</span>
                 </span>
                 <Syringe />
               </div>
-              <div className='text-base  xs:text-lg sm:text-xl md:text-2xl mb-10 md:mb-12'>
-                ({month}月{day}日:
+              <div className='text-base xs:text-lg sm:text-xl md:text-2xl mb-10 md:mb-12'>
+                {month}/{day}({dayOfWeek}):
                 <span className={`${styles.greenHighlight} ml-1`}>
                   +{latestChange}万
                 </span>
-                )
               </div>
               <div className='text-lg xs:text-xl sm:text-2xl md:text-3xl'>
                 前週平均:
@@ -180,7 +177,7 @@ export default function Home({
                       </span>
                     </a>
                   </div>
-                  <div className='text-xxs xs:text-xs sm:text-sm text-gray-400'>
+                  <div className='text-xxs xs:text-xs sm:text-sm text-gray-500'>
                     <a
                       href='https://cio.go.jp/c19vaccine_dashboard'
                       className='hover:underline'
@@ -195,14 +192,14 @@ export default function Home({
             </div>
           </main>
           <footer className='bg-gray-50'>
-            <div className='text-center py-4 text-gray-400 text-xxs leading-loose px-3 sm:px-4'>
+            <div className='text-center py-4 text-gray-500 text-xxs leading-loose px-3 sm:px-4'>
               データ入力の遅れにより過去の接種回数が変更される場合があります。
               <br className='hidden xs:block lg:hidden' />
               データ:
               <a
                 href='https://cio.go.jp/c19vaccine_opendata'
                 target='_blank'
-                className='hover:underline text-gray-500'
+                className='hover:underline text-gray-600'
                 rel='noopener'
               >
                 政府CIOポータル「新型コロナワクチンの接種状況」
@@ -222,7 +219,7 @@ export default function Home({
               <a
                 href='https://github.com/twitter/twemoji'
                 target='_blank'
-                className='hover:underline text-gray-500'
+                className='hover:underline text-gray-600'
                 rel='noopener'
               >
                 Twemoji
@@ -240,7 +237,7 @@ export default function Home({
               <a
                 href='https://twitter.com/chibicode'
                 target='_blank'
-                className='hover:underline text-gray-500'
+                className='hover:underline text-gray-600'
                 rel='noopener'
               >
                 @chibicode
@@ -314,12 +311,21 @@ export async function getStaticProps() {
   const month = data[data.length - 1][1]
   const day = data[data.length - 1][2]
 
+  const prevYear = data[data.length - 7][0]
+  const prevMonth = data[data.length - 7][1]
+  const prevDay = data[data.length - 7][2]
+
   const dateCacheKey = crypto
     .createHash('sha256')
     .update(`${year}-${month}-${day}`)
     .digest('hex')
     .slice(0, 6)
 
+  const dayOfWeek = new Date(year, month - 1, day).toLocaleString('ja-JP', {
+    weekday: 'short'
+  })
+
+  const ratio = Math.round((avg / prevAvg) * 10) / 10
   return {
     props: {
       latestChange,
@@ -328,7 +334,12 @@ export async function getStaticProps() {
       month,
       day,
       prevAvg,
-      dateCacheKey
+      dateCacheKey,
+      prevYear,
+      prevMonth,
+      prevDay,
+      ratio,
+      dayOfWeek
     },
     revalidate: 300
   }
