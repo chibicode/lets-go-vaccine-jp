@@ -1,4 +1,4 @@
-import { url } from '../../lib/constants'
+import { url } from '../../../lib/constants'
 import chrome from 'chrome-aws-lambda'
 import puppeteer from 'puppeteer-core'
 
