@@ -104,7 +104,7 @@ export default function Home({
                     {month}/{day}
                   </span>
                   <span className='text-base xs:text-lg sm:text-xl md:text-2xl ml-1'>
-                    の直近1週間平均
+                    の直近7日間平均
                   </span>
                 </h3>
                 <h6 className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-500'>
@@ -157,7 +157,7 @@ export default function Home({
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
                         `${url}/?v=${dateCacheKey}`
                       )}&text=${encodeURIComponent(
-                        `コロナワクチン 高齢者等1日当たり接種回数
+                        `#レッツゴーワクチン 高齢者等1日当たり接種回数
 ${prevMonth}/${prevDay}〜${
                           prevYear !== year ? `${year}/` : ''
                         }${month}/${day}の直近1週間平均: 約${avg}万回 (前週比${ratio}倍)`
