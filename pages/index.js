@@ -254,7 +254,7 @@ export default function Home({
               直近3週間の高齢者等接種回数
             </h3>
             <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed xs:leading-relaxed'>
-              1回目と2回目の合計。1週間ごとに背景色の濃淡を変えた。
+              1回目と2回目の接種回数の合計。1週間毎に色の濃淡を変えた。
             </h5>
             <div className='flex justify-center'>
               <div className='rounded-lg border border-gray-200 overflow-hidden'>
