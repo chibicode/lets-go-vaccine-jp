@@ -5,7 +5,7 @@ import Twitter from '../components/twitter'
 import GitHub from '../components/github'
 import styles from '../styles/index.module.css'
 import { url } from '../lib/constants'
-import { useEffect } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import crypto from 'crypto'
 
 const description = '新型コロナワクチン 高齢者等1日当たり接種回数'
@@ -44,6 +44,14 @@ export default function Home({
       replace(`/?v=${dateCacheKey}`)
     }
   }, [isReady, replace, query.v, query.share, dateCacheKey])
+  const divRef = useRef()
+  const onScrollClick = useCallback(() => {
+    if (divRef.current) {
+      divRef.current.scrollIntoView({
+        behavior: 'smooth'
+      })
+    }
+  }, [divRef.current])
   return (
     <>
       <Head>
@@ -152,7 +160,7 @@ export default function Home({
                 <div id='share' />
               ) : (
                 <div className='mt-12'>
-                  <div className='flex justify-center mb-3'>
+                  <div className='flex justify-center mb-4'>
                     <a
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
                         `${url}/?v=${dateCacheKey}`
@@ -190,15 +198,15 @@ ${prevMonth}/${prevDay}〜${
                       </span>
                     </a>
                   </div>
-                  <div className='text-xxs xs:text-xs sm:text-sm text-gray-500'>
-                    <a
-                      href='https://cio.go.jp/c19vaccine_dashboard'
-                      className='hover:underline'
+                  <div className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-600'>
+                    <button
+                      onClick={onScrollClick}
+                      className='hover:underline tracking-wider'
                       target='_blank'
                       rel='noopener'
                     >
-                      詳しい接種状況を見る(政府CIOポータル) →
-                    </a>
+                      ↓スクロールして詳しい接種状況を表示
+                    </button>
                   </div>
                 </div>
               )}
@@ -258,24 +266,34 @@ ${prevMonth}/${prevDay}〜${
             </div>
           </footer>
         </div>
-        <div className='bg-gray-50 pt-6 pb-12 px-4'>
+        <div className='bg-gray-50 pt-6 pb-12 px-4' ref={divRef}>
           <div className='pt-5 pb-10'>
             <h3 className='text-center mb-1 sm:mb-2 text-base xs:text-lg sm:text-xl md:text-2xl'>
               高齢者等接種回数の合計
             </h3>
-            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 leading-relaxed xs:leading-relaxed'>
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 leading-relaxed'>
               {firstYear}/{firstMonth}/{firstDay}〜
               {firstYear !== year ? `${year}/` : ''}/{month}/{day}
             </h5>
-            <div className='text-center mb-16 text-lg xs:text-xl sm:text-2xl md:text-3xl'>
+            <div className='text-center  text-lg xs:text-xl sm:text-2xl md:text-3xl mb-5 sm:mb-6'>
               <span className={styles.yellowHighlight}>
                 {Math.floor(total / 10000)}万{total % 10000}回
               </span>
             </div>
+            <div className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-16 leading-relaxed'>
+              <a
+                href='https://cio.go.jp/c19vaccine_dashboard'
+                className='underline hover:text-gray-600'
+                target='_blank'
+                rel='noopener'
+              >
+                さらに詳細なダッシュボードはこちら(政府CIOポータル)
+              </a>
+            </div>
             <h3 className='text-center mb-2 text-base xs:text-lg sm:text-xl md:text-2xl'>
               直近3週間の高齢者等接種回数
             </h3>
-            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed xs:leading-relaxed'>
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed'>
               1回目と2回目の接種回数の合計。1週間毎に色の濃淡を変えた。
             </h5>
             <div className='flex justify-center mb-5'>
@@ -365,14 +383,14 @@ ${prevMonth}/${prevDay}〜${
                 </table>
               </div>
             </div>
-            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed xs:leading-relaxed'>
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed'>
               <a
                 href='http://vrs-data.cio.go.jp/vaccination/opendata/latest/summary_by_date.csv'
                 target='_blank'
                 className='underline hover:text-gray-600'
                 rel='noopener'
               >
-                CSVファイルへのリンクはこちら (政府CIOポータル)
+                CSVファイルへのリンクはこちら(政府CIOポータル)
               </a>
             </h5>
           </div>
