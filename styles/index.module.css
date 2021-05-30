@@ -35,3 +35,18 @@
     transparent calc(75% + 1px)
   );
 }
+
+.pointDownArrow {
+  animation: moveUpDown 1.5s ease infinite;
+  display: inline-block;
+}
+
+@keyframes moveUpDown {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
