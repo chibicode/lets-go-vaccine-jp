@@ -26,13 +26,17 @@ export default function Home({
   prevYear,
   prevMonth,
   prevDay,
+  firstYear,
+  firstMonth,
+  firstDay,
   avg,
   prevAvg,
   latestChange,
   dateCacheKey,
   ratio,
   dayOfWeek,
-  table
+  table,
+  total
 }) {
   const { query, replace, isReady } = useRouter()
   useEffect(() => {
@@ -96,7 +100,7 @@ export default function Home({
                 <h3 className='text-lg xs:text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4'>
                   {prevYear}/
                   <span className={styles.blueHighlight}>
-                    {prevMonth}/{prevDay}〜{prevYear !== year ? year : ''}
+                    {prevMonth}/{prevDay}〜{prevYear !== year ? `${year}/` : ''}
                     {month}/{day}
                   </span>
                   <span className='text-base xs:text-lg sm:text-xl md:text-2xl ml-1'>
@@ -251,6 +255,18 @@ export default function Home({
         </div>
         <div className='bg-gray-50 pt-6 pb-12 px-4'>
           <div className='pt-5 pb-10'>
+            <h3 className='text-center mb-1 sm:mb-2 text-base xs:text-lg sm:text-xl md:text-2xl'>
+              高齢者等接種回数の合計
+            </h3>
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 leading-relaxed xs:leading-relaxed'>
+              {firstYear}/{firstMonth}/{firstDay}〜
+              {firstYear !== year ? `${year}/` : ''}/{month}/{day}
+            </h5>
+            <div className='text-center mb-16 text-lg xs:text-xl sm:text-2xl md:text-3xl'>
+              <span className={styles.yellowHighlight}>
+                {Math.floor(total / 10000)}万{total % 10000}回
+              </span>
+            </div>
             <h3 className='text-center mb-2 text-base xs:text-lg sm:text-xl md:text-2xl'>
               直近3週間の高齢者等接種回数
             </h3>
@@ -260,7 +276,7 @@ export default function Home({
             <div className='flex justify-center mb-5'>
               <div className='rounded-lg border border-gray-200 overflow-hidden'>
                 <table className='divide-y divide-gray-200 text-sm xs:text-base sm:text-lg md:text-xl'>
-                  <thead class='bg-gray-100 '>
+                  <thead className='bg-gray-100 '>
                     <tr className='divide-x divide-gray-200'>
                       <th
                         scope='col'
@@ -422,6 +438,10 @@ export async function getStaticProps() {
   const prevMonth = data[data.length - 7][1]
   const prevDay = data[data.length - 7][2]
 
+  const firstYear = data[0][0]
+  const firstMonth = data[0][1]
+  const firstDay = data[0][2]
+
   const dateCacheKey = crypto
     .createHash('sha256')
     .update(`${year}-${month}-${day}`)
@@ -433,6 +453,10 @@ export async function getStaticProps() {
   })
 
   const ratio = Math.round((avg / prevAvg) * 10) / 10
+
+  const total = data
+    .map((x) => x[3] + x[4])
+    .reduce((current, prev) => prev + current)
 
   const table = data
     .slice(data.length - 21)
@@ -462,6 +486,10 @@ export async function getStaticProps() {
       prevYear,
       prevMonth,
       prevDay,
+      firstYear,
+      firstMonth,
+      firstDay,
+      total,
       ratio,
       dayOfWeek,
       table
