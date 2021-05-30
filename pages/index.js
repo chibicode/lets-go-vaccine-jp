@@ -156,6 +156,11 @@ export default function Home({
                     <a
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
                         `${url}/?v=${dateCacheKey}`
+                      )}&text=${encodeURIComponent(
+                        `コロナワクチン 高齢者等1日当たり接種回数
+${prevMonth}/${prevDay}〜${
+                          prevYear !== year ? `${year}/` : ''
+                        }${month}/${day}の直近1週間平均: 約${avg}万回 (前週比${ratio}倍)`
                       )}`}
                       className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center text-white px-5 text-sm xs:text-base sm:text-lg py-3 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-400 hover:border-gray-900'
                       style={{ background: '#1D9BF0' }}
