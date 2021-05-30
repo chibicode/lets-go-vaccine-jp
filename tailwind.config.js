@@ -7,8 +7,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ['DotGothic16', 'sans-serif'],
-      serif: ['Merriweather', 'serif']
+      sans: ['DotGothic16', 'sans-serif']
     },
     screens: {
       xs: '400px',

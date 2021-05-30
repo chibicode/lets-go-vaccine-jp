@@ -256,7 +256,7 @@ export default function Home({
             <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed xs:leading-relaxed'>
               1回目と2回目の接種回数の合計。1週間毎に色の濃淡を変えた。
             </h5>
-            <div className='flex justify-center'>
+            <div className='flex justify-center mb-5'>
               <div className='rounded-lg border border-gray-200 overflow-hidden'>
                 <table className='divide-y divide-gray-200 text-sm xs:text-base sm:text-lg md:text-xl'>
                   <thead class='bg-gray-100 '>
@@ -343,6 +343,16 @@ export default function Home({
                 </table>
               </div>
             </div>
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed xs:leading-relaxed'>
+              <a
+                href='http://vrs-data.cio.go.jp/vaccination/opendata/latest/summary_by_date.csv'
+                target='_blank'
+                className='underline hover:text-gray-600'
+                rel='noopener'
+              >
+                CSVファイルへのリンクはこちら (政府CIOポータル)
+              </a>
+            </h5>
           </div>
           {tweetIds.map((tweetId) => (
             <div className='py-5' key={tweetId}>
