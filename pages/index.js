@@ -160,7 +160,7 @@ export default function Home({
                 <div id='share' />
               ) : (
                 <div className='mt-12'>
-                  <div className='flex justify-center mb-4'>
+                  <div className='flex justify-center mb-6'>
                     <a
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
                         `${url}/?v=${dateCacheKey}`
@@ -199,14 +199,19 @@ ${prevMonth}/${prevDay}〜${
                     </a>
                   </div>
                   <div className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-600'>
-                    <button
-                      onClick={onScrollClick}
-                      className='hover:underline tracking-wider'
-                      target='_blank'
-                      rel='noopener'
-                    >
-                      ↓スクロールして詳しい接種状況を表示
-                    </button>
+                    <div className='mb-1'>
+                      <button
+                        onClick={onScrollClick}
+                        className='hover:underline tracking-wider'
+                        target='_blank'
+                        rel='noopener'
+                      >
+                        スクロールして詳しい接種状況を表示
+                      </button>
+                    </div>
+                    <div>
+                      <span className={styles.pointDownArrow}>↓</span>
+                    </div>
                   </div>
                 </div>
               )}
