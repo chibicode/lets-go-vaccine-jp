@@ -20,3 +20,18 @@
   background-image: linear-gradient(to right, #ecfdf5 1px, transparent 1px),
     linear-gradient(to bottom, #ecfdf5 1px, transparent 1px);
 }
+
+.barBg {
+  background-image: linear-gradient(
+    to right,
+    transparent calc(25% - 1px),
+    #e5e7eb 25%,
+    transparent calc(25% + 1px),
+    transparent calc(50% - 1px),
+    #d1d5db 50%,
+    transparent calc(50% + 1px),
+    transparent calc(75% - 1px),
+    #e5e7eb 75%,
+    transparent calc(75% + 1px)
+  );
+}
