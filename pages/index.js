@@ -30,7 +30,8 @@ export default function Home({
   latestChange,
   dateCacheKey,
   ratio,
-  dayOfWeek
+  dayOfWeek,
+  table
 }) {
   const { query, replace, isReady } = useRouter()
   useEffect(() => {
@@ -73,23 +74,25 @@ export default function Home({
       <div className='text-gray-900 xs:tracking-wider'>
         <div className={`min-h-screen flex flex-col ${styles.bg}`}>
           <header className='text-center pb-3 xs:pb-4 sm:pb-5 pt-2 xs:pt-3 sm:pt-4 px-4 text-xl xs:text-2xl sm:text-3xl  bg-green-50'>
-            <Syringe />
-            <span className={`${styles.greenHighlight} align-middle`}>
-              レッツゴーワクチン
-              <span className='text-gray-500'>(仮)</span>
-            </span>
-            <Syringe />
+            <h1>
+              <Syringe />
+              <span className={`${styles.greenHighlight} align-middle`}>
+                レッツゴーワクチン
+                <span className='text-gray-500'>(仮)</span>
+              </span>
+              <Syringe />
+            </h1>
           </header>
           <main className='text-center py-8 px-1 sm:px-2 flex-1 flex items-center'>
             <div className='w-full'>
               <div className='mb-7'>
-                <div className='text-base xs:text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 md:mb-3'>
+                <h4 className='text-base xs:text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 md:mb-3'>
                   コロナワクチン<span className='hidden xs:inline'> </span>
                   高齢者等
                   <span className={styles.blueHighlight}>1日当たり</span>
                   接種回数
-                </div>
-                <div className='text-lg xs:text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4'>
+                </h4>
+                <h3 className='text-lg xs:text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4'>
                   {prevYear}/
                   <span className={styles.blueHighlight}>
                     {prevMonth}/{prevDay}〜{prevYear !== year ? year : ''}
@@ -98,8 +101,8 @@ export default function Home({
                   <span className='text-base xs:text-lg sm:text-xl md:text-2xl ml-1'>
                     の直近1週間平均
                   </span>
-                </div>
-                <div className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-500'>
+                </h3>
+                <h6 className='text-xxs xs:text-xs sm:text-sm md:text-base text-gray-500'>
                   ※四捨五入。医療従事者を除く(
                   <a
                     href='https://cio.go.jp/c19vaccine_opendata'
@@ -110,22 +113,22 @@ export default function Home({
                     データ元
                   </a>
                   未対応)
-                </div>
+                </h6>
               </div>
-              <div className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6 md:mb-8'>
+              <h2 className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6 md:mb-8'>
                 <Syringe />
                 <span className='align-middle'>
                   <span className={styles.yellowHighlight}>約{avg}万回</span>
                 </span>
                 <Syringe />
-              </div>
-              <div className='text-base xs:text-lg sm:text-xl md:text-2xl mb-8 sm:mb-10 md:mb-12'>
+              </h2>
+              <h4 className='text-base xs:text-lg sm:text-xl md:text-2xl mb-8 sm:mb-10 md:mb-12'>
                 {month}/{day}({dayOfWeek}):
                 <span className={`${styles.greenHighlight} ml-1`}>
                   +{latestChange}万
                 </span>
-              </div>
-              <div className='text-lg xs:text-xl sm:text-2xl md:text-3xl'>
+              </h4>
+              <h3 className='text-lg xs:text-xl sm:text-2xl md:text-3xl'>
                 前週平均:
                 <span className={styles.yellowHighlight}>約{prevAvg}万回</span>
                 <span className='text-base xs:text-lg sm:text-xl md:text-2xl ml-1'>
@@ -139,7 +142,7 @@ export default function Home({
                   </span>
                   )
                 </span>
-              </div>
+              </h3>
               {query.share ? (
                 <div id='share' />
               ) : (
@@ -245,24 +248,79 @@ export default function Home({
             </div>
           </footer>
         </div>
-        {tweetIds.length > 0 && (
-          <div className='bg-gray-50 pt-6 pb-12 px-4'>
-            {tweetIds.map((tweetId) => (
-              <div className='py-5' key={tweetId}>
-                <blockquote
-                  className='twitter-tweet'
-                  data-conversation='none'
-                  data-align='center'
-                  data-lang='ja'
-                  data-dnt='true'
-                  aria-label='ツイート'
-                >
-                  <a href={`https://twitter.com/chibicode/status/${tweetId}`} />
-                </blockquote>
+        <div className='bg-gray-50 pt-6 pb-12 px-4'>
+          <div className='pt-5 pb-10'>
+            <h3 className='text-center mb-2 text-base xs:text-lg sm:text-xl md:text-2xl'>
+              直近14日の高齢者等接種回数
+            </h3>
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5'>
+              1回目と2回目の合計。直近7日は黄色の背景で表示。
+            </h5>
+            <div className='flex justify-center'>
+              <div className='rounded-lg border border-gray-200 overflow-hidden'>
+                <table className='divide-y divide-gray-200 sm:text-lg md:text-xl'>
+                  <thead class='bg-gray-100 '>
+                    <tr className='divide-x divide-gray-200'>
+                      <th
+                        scope='col'
+                        className='py-1 sm:py-2 px-4 font-medium text-center'
+                      >
+                        日付
+                      </th>
+                      <th
+                        scope='col'
+                        className='py-1 sm:py-2 px-4 font-medium text-center'
+                      >
+                        回数
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className='bg-white divide-y divide-gray-200'>
+                    {table.map(([_, tMonth, tDay, tFirst, tSecond], tIndex) => {
+                      const sum = tFirst + tSecond
+                      return (
+                        <tr
+                          key={`${tMonth}${tDay}`}
+                          className='divide-x divide-gray-200'
+                        >
+                          <td
+                            className={`py-1 sm:py-2 px-3 text-center ${
+                              tIndex < 7 ? 'bg-yellow-50' : ''
+                            }`}
+                          >
+                            {tMonth}/{tDay}
+                          </td>
+                          <td
+                            className={`py-1 sm:py-2 px-3 text-center ${
+                              tIndex < 7 ? 'bg-yellow-50' : ''
+                            }`}
+                          >
+                            {Math.floor(sum / 10000)}万
+                            <span className='text-gray-500'>{sum % 10000}</span>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
               </div>
-            ))}
+            </div>
           </div>
-        )}
+          {tweetIds.map((tweetId) => (
+            <div className='py-5' key={tweetId}>
+              <blockquote
+                className='twitter-tweet'
+                data-conversation='none'
+                data-align='center'
+                data-lang='ja'
+                data-dnt='true'
+                aria-label='ツイート'
+              >
+                <a href={`https://twitter.com/chibicode/status/${tweetId}`} />
+              </blockquote>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )
@@ -326,6 +384,9 @@ export async function getStaticProps() {
   })
 
   const ratio = Math.round((avg / prevAvg) * 10) / 10
+
+  const table = data.slice(data.length - 14).reverse()
+
   return {
     props: {
       latestChange,
@@ -339,7 +400,8 @@ export async function getStaticProps() {
       prevMonth,
       prevDay,
       ratio,
-      dayOfWeek
+      dayOfWeek,
+      table
     },
     revalidate: 300
   }
