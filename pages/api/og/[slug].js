@@ -20,7 +20,11 @@ async function screenshot(url) {
       }
   const browser = await puppeteer.launch(options)
   const page = await browser.newPage()
-  await page.setViewport({ width: 1200, height: 600, deviceScaleFactor: 2 })
+  await page.setViewport({
+    width: 1146,
+    height: 600,
+    deviceScaleFactor: 2
+  })
   await page.goto(url, {
     waitUntil: process.env.AWS_REGION ? 'networkidle0' : 'load'
   })
