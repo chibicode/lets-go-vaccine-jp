@@ -251,14 +251,14 @@ export default function Home({
         <div className='bg-gray-50 pt-6 pb-12 px-4'>
           <div className='pt-5 pb-10'>
             <h3 className='text-center mb-2 text-base xs:text-lg sm:text-xl md:text-2xl'>
-              直近14日の高齢者等接種回数
+              直近3週間の高齢者等接種回数
             </h3>
-            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5'>
-              1回目と2回目の合計。直近7日は黄色の背景で表示。
+            <h5 className='text-center text-xxs xs:text-xs sm:text-sm text-gray-500 mb-5 leading-relaxed xs:leading-relaxed'>
+              1回目と2回目の合計。1週間ごとに背景色の濃淡を変えた。
             </h5>
             <div className='flex justify-center'>
               <div className='rounded-lg border border-gray-200 overflow-hidden'>
-                <table className='divide-y divide-gray-200 sm:text-lg md:text-xl'>
+                <table className='divide-y divide-gray-200 text-sm xs:text-base sm:text-lg md:text-xl'>
                   <thead class='bg-gray-100 '>
                     <tr className='divide-x divide-gray-200'>
                       <th
@@ -273,34 +273,68 @@ export default function Home({
                       >
                         回数
                       </th>
+                      <th
+                        scope='col'
+                        className='py-1 sm:py-2 px-4 font-medium text-center'
+                      >
+                        100万回到達率
+                      </th>
                     </tr>
                   </thead>
                   <tbody className='bg-white divide-y divide-gray-200'>
-                    {table.map(([_, tMonth, tDay, tFirst, tSecond], tIndex) => {
-                      const sum = tFirst + tSecond
-                      return (
-                        <tr
-                          key={`${tMonth}${tDay}`}
-                          className='divide-x divide-gray-200'
-                        >
-                          <td
-                            className={`py-1 sm:py-2 px-3 text-center ${
-                              tIndex < 7 ? 'bg-yellow-50' : ''
-                            }`}
+                    {table.map(
+                      ([tMonth, tDay, tTenK, tRest, tPercentage], tIndex) => {
+                        return (
+                          <tr
+                            key={`${tMonth}${tDay}`}
+                            className='divide-x divide-gray-200'
                           >
-                            {tMonth}/{tDay}
-                          </td>
-                          <td
-                            className={`py-1 sm:py-2 px-3 text-center ${
-                              tIndex < 7 ? 'bg-yellow-50' : ''
-                            }`}
-                          >
-                            {Math.floor(sum / 10000)}万
-                            <span className='text-gray-500'>{sum % 10000}</span>
-                          </td>
-                        </tr>
-                      )
-                    })}
+                            <td
+                              className={`py-1 sm:py-2 px-3 text-right ${
+                                tIndex < 7
+                                  ? 'bg-yellow-100'
+                                  : tIndex < 14
+                                  ? 'bg-yellow-50'
+                                  : ''
+                              }`}
+                            >
+                              {tMonth}/{tDay}
+                            </td>
+                            <td
+                              className={`py-1 sm:py-2 px-3 text-left ${
+                                tIndex < 7
+                                  ? 'bg-yellow-100'
+                                  : tIndex < 14
+                                  ? 'bg-yellow-50'
+                                  : ''
+                              }`}
+                            >
+                              {tTenK < 10 ? '\u00A0' : ''}
+                              {tTenK}
+                              <small>万{tRest}</small>
+                            </td>
+                            <td
+                              className={`py-1 sm:py-2 px-3 text-left ${
+                                tIndex < 7
+                                  ? 'bg-yellow-100'
+                                  : tIndex < 14
+                                  ? 'bg-yellow-50'
+                                  : ''
+                              }`}
+                            >
+                              <span
+                                className={`flex mx-auto w-24 xs:w-28 sm:w-32 md:w-36 border border-gray-400 rounded-md h-1em overflow-hidden ${styles.barBg}`}
+                              >
+                                <span
+                                  className='h-full bg-green-400 border-green-500'
+                                  style={{ width: `${tPercentage}%` }}
+                                />
+                              </span>
+                            </td>
+                          </tr>
+                        )
+                      }
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -385,7 +419,18 @@ export async function getStaticProps() {
 
   const ratio = Math.round((avg / prevAvg) * 10) / 10
 
-  const table = data.slice(data.length - 14).reverse()
+  const table = data
+    .slice(data.length - 21)
+    .reverse()
+    .map(([_, tMonth, tDay, tFirst, tSecond]) => {
+      return [
+        tMonth,
+        tDay,
+        Math.floor((tFirst + tSecond) / 10000),
+        (tFirst + tSecond) % 10000,
+        (tFirst + tSecond) / 10000
+      ]
+    })
 
   return {
     props: {
