@@ -283,14 +283,17 @@ export default function Home({
                   </thead>
                   <tbody className='bg-white divide-y divide-gray-200'>
                     {table.map(
-                      ([tMonth, tDay, tTenK, tRest, tPercentage], tIndex) => {
+                      (
+                        [tMonth, tDay, tTenK, tRest, tPercentage, tDow],
+                        tIndex
+                      ) => {
                         return (
                           <tr
                             key={`${tMonth}${tDay}`}
                             className='divide-x divide-gray-200'
                           >
                             <td
-                              className={`py-1 sm:py-2 px-3 text-right ${
+                              className={`py-1 sm:py-2 pl-3 pr-2 text-right ${
                                 tIndex < 7
                                   ? 'bg-yellow-100'
                                   : tIndex < 14
@@ -299,6 +302,7 @@ export default function Home({
                               }`}
                             >
                               {tMonth}/{tDay}
+                              <small>({tDow})</small>
                             </td>
                             <td
                               className={`py-1 sm:py-2 px-3 text-left ${
@@ -432,13 +436,16 @@ export async function getStaticProps() {
   const table = data
     .slice(data.length - 21)
     .reverse()
-    .map(([_, tMonth, tDay, tFirst, tSecond]) => {
+    .map(([tYear, tMonth, tDay, tFirst, tSecond]) => {
       return [
         tMonth,
         tDay,
         Math.floor((tFirst + tSecond) / 10000),
         (tFirst + tSecond) % 10000,
-        (tFirst + tSecond) / 10000
+        (tFirst + tSecond) / 10000,
+        new Date(tYear, tMonth - 1, tDay).toLocaleString('ja-JP', {
+          weekday: 'short'
+        })
       ]
     })
 
