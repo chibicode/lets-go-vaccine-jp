@@ -158,7 +158,7 @@ export default function Home({
                         `${url}/?v=${dateCacheKey}`
                       )}&text=${encodeURIComponent(
                         `コロナワクチン 高齢者等1日当たり接種回数
-${prevYear}/${prevMonth}/${prevDay}〜${
+${prevMonth}/${prevDay}〜${
                           prevYear !== year ? `${year}/` : ''
                         }${month}/${day}の直近1週間平均: 約${avg}万回 (前週比${ratio}倍)`
                       )}`}
