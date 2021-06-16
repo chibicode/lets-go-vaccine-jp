@@ -218,16 +218,16 @@ ${prevMonth}/${prevDay}〜${
           </main>
           <footer className='bg-gray-50'>
             <div className='text-center py-4 text-gray-500 text-xxs leading-loose px-3 sm:px-4'>
-              データ入力の遅れにより過去の接種回数が変更される場合があります。
+              データ入力遅れにより過去の接種回数が変更される場合があります。
               <br className='hidden xs:block lg:hidden' />
-              データ:
+              出典:
               <a
                 href='https://cio.go.jp/c19vaccine_opendata'
                 target='_blank'
                 className='hover:underline text-gray-600'
                 rel='noopener noreferrer'
               >
-                政府CIOポータル「新型コロナワクチンの接種状況」
+                内閣官房 IT総合戦略室「新型コロナワクチンの接種状況」
               </a>
               (
               <a
@@ -258,7 +258,7 @@ ${prevMonth}/${prevDay}〜${
               >
                 CC BY 4.0
               </a>
-              )・作成:
+              )・by:
               <a
                 href='https://twitter.com/chibicode'
                 target='_blank'
