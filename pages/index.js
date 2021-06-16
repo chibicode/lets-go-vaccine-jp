@@ -4,8 +4,9 @@ import Syringe from '../components/syringe'
 import Twitter from '../components/twitter'
 import GitHub from '../components/github'
 import styles from '../styles/index.module.css'
+import Script from 'next/script'
 import { url } from '../lib/constants'
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import crypto from 'crypto'
 
 const description = '新型コロナワクチン 高齢者等1日当たり接種回数'
@@ -39,6 +40,7 @@ export default function Home({
   total
 }) {
   const { query, replace, isReady } = useRouter()
+  const [twitterReady, setTwitterReady] = useState(false)
   useEffect(() => {
     if (isReady && (!query.v || query.v !== dateCacheKey) && !query.share) {
       replace(`/?v=${dateCacheKey}`)
@@ -51,7 +53,7 @@ export default function Home({
         behavior: 'smooth'
       })
     }
-  }, [divRef.current])
+  }, [])
   return (
     <>
       <Head>
@@ -71,19 +73,16 @@ export default function Home({
           content={`${url}/api/og/${dateCacheKey}`}
         ></meta>
         <link rel='icon' href='/1f489.png' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=DotGothic16&display=swap'
-          rel='stylesheet'
-        />
-        {isReady && !query.share && (
-          <script
-            async
-            src='https://platform.twitter.com/widgets.js'
-            charset='utf-8'
-          />
-        )}
       </Head>
+      {isReady && !query.share && (
+        <Script
+          src='https://platform.twitter.com/widgets.js'
+          strategy='lazyOnload'
+          onLoad={() => {
+            setTwitterReady(true)
+          }}
+        />
+      )}
       <div className='text-gray-900 xs:tracking-wider'>
         <div className={`min-h-screen flex flex-col ${styles.bg}`}>
           <header className='text-center pb-3 xs:pb-4 sm:pb-5 pt-2 xs:pt-3 sm:pt-4 px-4 text-xl xs:text-2xl sm:text-3xl  bg-green-50'>
@@ -121,7 +120,7 @@ export default function Home({
                     href='https://cio.go.jp/c19vaccine_opendata'
                     target='_blank'
                     className='hover:underline'
-                    rel='noopener'
+                    rel='noopener noreferrer'
                   >
                     データ元
                   </a>
@@ -173,7 +172,7 @@ ${prevMonth}/${prevDay}〜${
                       className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center text-white px-5 text-sm xs:text-base sm:text-lg py-3 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-400 hover:border-gray-900'
                       style={{ background: '#1D9BF0' }}
                       target='_blank'
-                      rel='noopener'
+                      rel='noopener noreferrer'
                     >
                       <span className='inline-flex mr-1 -ml-1 text-2xl'>
                         <Twitter />
@@ -184,7 +183,7 @@ ${prevMonth}/${prevDay}〜${
                       href='https://github.com/chibicode/lets-go-vaccine-jp'
                       className='mx-1 border border-transparent focus:ring-offset-2 inline-flex items-center px-4 sm:px-5 text-sm xs:text-base sm:text-lg py-3 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-400 bg-gray-100 hover:border-gray-900'
                       target='_blank'
-                      rel='noopener'
+                      rel='noopener noreferrer'
                     >
                       <span
                         className='inline-flex mr-1 -ml-1 text-3xl'
@@ -204,7 +203,7 @@ ${prevMonth}/${prevDay}〜${
                         onClick={onScrollClick}
                         className='hover:underline tracking-wider'
                         target='_blank'
-                        rel='noopener'
+                        rel='noopener noreferrer'
                       >
                         スクロールして詳しい接種状況を表示
                       </button>
@@ -226,7 +225,7 @@ ${prevMonth}/${prevDay}〜${
                 href='https://cio.go.jp/c19vaccine_opendata'
                 target='_blank'
                 className='hover:underline text-gray-600'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 政府CIOポータル「新型コロナワクチンの接種状況」
               </a>
@@ -235,7 +234,7 @@ ${prevMonth}/${prevDay}〜${
                 href='https://creativecommons.org/licenses/by/4.0/deed.ja'
                 target='_blank'
                 className='hover:underline'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 CC BY 4.0
               </a>
@@ -246,7 +245,7 @@ ${prevMonth}/${prevDay}〜${
                 href='https://github.com/twitter/twemoji'
                 target='_blank'
                 className='hover:underline text-gray-600'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 Twemoji
               </a>
@@ -255,7 +254,7 @@ ${prevMonth}/${prevDay}〜${
                 href='https://creativecommons.org/licenses/by/4.0/'
                 target='_blank'
                 className='hover:underline'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 CC BY 4.0
               </a>
@@ -264,7 +263,7 @@ ${prevMonth}/${prevDay}〜${
                 href='https://twitter.com/chibicode'
                 target='_blank'
                 className='hover:underline text-gray-600'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 @chibicode
               </a>
@@ -290,7 +289,7 @@ ${prevMonth}/${prevDay}〜${
                 href='https://cio.go.jp/c19vaccine_dashboard'
                 className='underline hover:text-gray-600'
                 target='_blank'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 さらに詳細なダッシュボードはこちら(政府CIOポータル)
               </a>
@@ -393,26 +392,27 @@ ${prevMonth}/${prevDay}〜${
                 href='http://vrs-data.cio.go.jp/vaccination/opendata/latest/summary_by_date.csv'
                 target='_blank'
                 className='underline hover:text-gray-600'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 CSVファイルへのリンクはこちら(政府CIOポータル)
               </a>
             </h5>
           </div>
-          {tweetIds.map((tweetId) => (
-            <div className='py-5' key={tweetId}>
-              <blockquote
-                className='twitter-tweet'
-                data-conversation='none'
-                data-align='center'
-                data-lang='ja'
-                data-dnt='true'
-                aria-label='ツイート'
-              >
-                <a href={`https://twitter.com/chibicode/status/${tweetId}`} />
-              </blockquote>
-            </div>
-          ))}
+          {twitterReady &&
+            tweetIds.map((tweetId) => (
+              <div className='py-5' key={tweetId}>
+                <blockquote
+                  className='twitter-tweet'
+                  data-conversation='none'
+                  data-align='center'
+                  data-lang='ja'
+                  data-dnt='true'
+                  aria-label='ツイート'
+                >
+                  <a href={`https://twitter.com/chibicode/status/${tweetId}`} />
+                </blockquote>
+              </div>
+            ))}
         </div>
       </div>
     </>

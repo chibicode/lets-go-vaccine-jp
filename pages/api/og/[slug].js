@@ -37,7 +37,7 @@ export default async function og(_, res) {
     `${
       process.env.AWS_REGION
         ? process.env.VERCEL_ENV === 'preview'
-          ? process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
           : url
         : 'http://localhost:3000'
     }/?share=1`

@@ -9,15 +9,17 @@
   },
   "dependencies": {
     "autoprefixer": "^10.2.6",
-    "chrome-aws-lambda": "^9.1.0",
-    "next": "10.2.3",
-    "postcss": "^8.3.0",
-    "puppeteer-core": "^9.1.1",
+    "chrome-aws-lambda": "^10.0.0",
+    "next": "11.0.0",
+    "postcss": "^8.3.4",
+    "puppeteer-core": "^10.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "tailwindcss": "^2.1.2"
+    "tailwindcss": "^2.1.4"
   },
   "devDependencies": {
-    "prettier": "^2.3.0"
+    "eslint": "^7.28.0",
+    "eslint-config-next": "^11.0.0",
+    "prettier": "^2.3.1"
   }
 }
