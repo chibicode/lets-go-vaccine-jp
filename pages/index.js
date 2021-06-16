@@ -4,21 +4,12 @@ import Syringe from '../components/syringe'
 import Twitter from '../components/twitter'
 import GitHub from '../components/github'
 import styles from '../styles/index.module.css'
-import Script from 'next/script'
 import { url } from '../lib/constants'
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import crypto from 'crypto'
 
 const description = '新型コロナワクチン 高齢者等1日当たり接種回数'
 const title = '💉レッツゴーワクチン(仮)💉'
-const tweetIds = [
-  '1398454311663718400',
-  '1398456142695571458',
-  '1398456864535302145',
-  '1398459461077925889',
-  '1398465619738075138',
-  '1398840305034481666'
-]
 
 export default function Home({
   year,
@@ -40,7 +31,6 @@ export default function Home({
   total
 }) {
   const { query, replace, isReady } = useRouter()
-  const [twitterReady, setTwitterReady] = useState(false)
   useEffect(() => {
     if (isReady && (!query.v || query.v !== dateCacheKey) && !query.share) {
       replace(`/?v=${dateCacheKey}`)
@@ -74,15 +64,6 @@ export default function Home({
         ></meta>
         <link rel='icon' href='/1f489.png' />
       </Head>
-      {isReady && !query.share && (
-        <Script
-          src='https://platform.twitter.com/widgets.js'
-          strategy='lazyOnload'
-          onLoad={() => {
-            setTwitterReady(true)
-          }}
-        />
-      )}
       <div className='text-gray-900 xs:tracking-wider'>
         <div className={`min-h-screen flex flex-col ${styles.bg}`}>
           <header className='text-center pb-3 xs:pb-4 sm:pb-5 pt-2 xs:pt-3 sm:pt-4 px-4 text-xl xs:text-2xl sm:text-3xl  bg-green-50'>
@@ -398,21 +379,6 @@ ${prevMonth}/${prevDay}〜${
               </a>
             </h5>
           </div>
-          {twitterReady &&
-            tweetIds.map((tweetId) => (
-              <div className='py-5' key={tweetId}>
-                <blockquote
-                  className='twitter-tweet'
-                  data-conversation='none'
-                  data-align='center'
-                  data-lang='ja'
-                  data-dnt='true'
-                  aria-label='ツイート'
-                >
-                  <a href={`https://twitter.com/chibicode/status/${tweetId}`} />
-                </blockquote>
-              </div>
-            ))}
         </div>
       </div>
     </>
