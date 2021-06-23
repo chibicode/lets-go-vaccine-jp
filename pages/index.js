@@ -461,7 +461,7 @@ export async function getStaticProps() {
         tDay,
         Math.floor((tFirst + tSecond) / 10000),
         (tFirst + tSecond) % 10000,
-        (tFirst + tSecond) / 10000,
+        Math.min((tFirst + tSecond) / 10000, 100),
         new Date(tYear, tMonth - 1, tDay).toLocaleString('ja-JP', {
           weekday: 'short'
         })
